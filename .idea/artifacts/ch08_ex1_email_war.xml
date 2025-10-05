@@ -1,0 +1,22 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ch08_ex1_email:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/ch08_ex1_email_war</output-path>
+    <root id="archive" name="ch08_ex1_email.war">
+      <element id="artifact" artifact-name="ch08_ex1_email:war exploded" />
+    </root>
+  </artifact>
+  <artifact type="exploded-war" name="ch08_ex1_email:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/ch08_ex1_email_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="ch08_ex1_email/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="ch08_ex1_email" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="jstl-1.2" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

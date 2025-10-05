@@ -1,0 +1,39 @@
+*.iml
+modules.xml
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/usage.statistics.xml
+.idea/dictionaries
+.idea/shelf
+
+# IntelliJ
+out/
+*.ipr
+*.iws
+
+# Maven
+target/
+
+# Gradle
+.gradle
+build/
+
+# VS Code
+.vscode/
+
+# Eclipse
+.settings/
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.loadpath
+.factorypath
+
+# General
+.DS_Store
+Thumbs.db
