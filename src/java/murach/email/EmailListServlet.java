@@ -37,28 +37,46 @@ public class EmailListServlet extends HttpServlet {
             String lastName = request.getParameter("lastName");
             String email = request.getParameter("email");
 
-            // Tạo user và lưu vào database
-            User user = new User(firstName, lastName, email);
-            UserDB.insert(user);
+            // Kiểm tra dữ liệu đầu vào
+            if (firstName != null && !firstName.trim().isEmpty() && 
+                lastName != null && !lastName.trim().isEmpty() && 
+                email != null && !email.trim().isEmpty()) {
+                
+                // Tạo user và lưu vào database
+                User user = new User(firstName, lastName, email);
+                UserDB.insert(user);
 
-            // Lưu user vào session (scope: session)
-            session.setAttribute("user", user);
+                // Lưu user vào session (scope: session)
+                session.setAttribute("user", user);
 
-            // Trang chuyển tiếp
-            url = "/thanks.jsp";   
+                // Trang chuyển tiếp
+                url = "/thanks.jsp";   
+            } else {
+                // Nếu dữ liệu không hợp lệ, quay lại form với thông báo lỗi
+                request.setAttribute("errorMessage", "Please fill in all fields!");
+                url = "/index.jsp";
+            }
         }
 
         // Ngày hiện tại (scope: request)
         Date currentDate = new Date();
         request.setAttribute("currentDate", currentDate);
 
-        // Lấy danh sách users từ file và lưu vào session
-        String path = getServletContext().getRealPath("/WEB-INF/EmailList.txt");
-        ArrayList<User> users = UserIO.getUsers(path);
-        session.setAttribute("users", users);
+        // Lấy danh sách users từ file và lưu vào session (với xử lý lỗi)
+        try {
+            String path = request.getServletContext().getRealPath("/WEB-INF/EmailList.txt");
+            ArrayList<User> users = UserIO.getUsers(path);
+            if (users == null) {
+                users = new ArrayList<User>();
+            }
+            session.setAttribute("users", users);
+        } catch (Exception e) {
+            // Tạo danh sách rỗng nếu có lỗi đọc file
+            session.setAttribute("users", new ArrayList<User>());
+        }
 
         // Forward request/response tới trang JSP
-        getServletContext()
+        request.getServletContext()
             .getRequestDispatcher(url)
             .forward(request, response);
     }    
